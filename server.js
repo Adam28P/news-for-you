@@ -9,7 +9,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 
 // Require all models
-var db = require("./models");
+// var db = require("./models");
 
 var PORT = 8080;
 
@@ -21,7 +21,9 @@ var app = express();
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Parse request body as JSON
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
@@ -36,9 +38,17 @@ var routes = require('./controller/controller.js');
 app.use('/', routes);
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/news_for_you", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/news_for_you", {
+  useNewUrlParser: true
+});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('Connected to Mongoose!')
+});
 
 // Start the server
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
 });
