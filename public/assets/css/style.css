@@ -76,3 +76,7 @@
 .card .card-body {
   font-size: 16px;
 }
+
+.scrape-new{
+  cursor: pointer;
+}

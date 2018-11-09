@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var CommentSchema = new Schema({
+var commentSchema = new Schema({
   _articleId: {
     type: Schema.Types.ObjectId,
     ref: "Article"
@@ -11,6 +11,6 @@ var CommentSchema = new Schema({
   commentText: String
 });
 
-var Comment = mongoose.model("Comment", CommentSchema);
+var Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = Comment;
