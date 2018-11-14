@@ -77,6 +77,14 @@
   font-size: 16px;
 }
 
-.scrape-new{
+.scrape-new, .clear{
   cursor: pointer;
+}
+
+button.btn.btn-danger.comment-delete{
+  float:right;
+}
+
+a.btn.btn-success.comments{
+  margin-right: 180px;
 }

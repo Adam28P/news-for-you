@@ -7,7 +7,6 @@ $(document).ready(function() {
   $(document).on("click", ".btn.comments", handleArticleComments);
   $(document).on("click", ".btn.save", handleCommentSave);
   $(document).on("click", ".btn.comment-delete", handleCommentDelete);
-  // $(".clear").on("click", handleArticleClear);
 
   initPage();
   
@@ -50,7 +49,7 @@ $(document).ready(function() {
           .attr("href", article.link)
           .text(article.title),
         $("<a class='btn btn-danger delete'>Delete From Saved</a>"),
-        $("<a class='btn btn-info comments'>Article Comments</a>")
+        $("<a class='btn btn-success comments'>Article Comments</a>")
       )
     );
 
@@ -122,9 +121,9 @@ $(document).ready(function() {
       .data();
 
     // Remove card from page
-    $(this)
-      .parents(".card")
-      .remove();
+    // $(this)
+    //   .parents(".card")
+    //   .remove();
     // Using a delete method here just to be semantic since we are deleting an article/headline
     $.ajax({
       method: "DELETE",
@@ -136,7 +135,7 @@ $(document).ready(function() {
       }
     });
   }
-  function handleArticleComments(event) {
+  function handleArticleComments() {
     // This function handles opening the comments modal and displaying our comments
     // We grab the id of the article to get comments for from the card element the delete button sits inside
     var currentArticle = $(this)
@@ -146,7 +145,7 @@ $(document).ready(function() {
     $.get("/api/comments/" + currentArticle._id).then(function(data) {
       // Constructing our initial HTML to add to the comments modal
       var modalText = $("<div class='container-fluid text-center'>").append(
-        $("<h4>").text("comments For Article: " + currentArticle._id),
+        $("<h4>").text("Comments for article: " + currentArticle._id),
         $("<hr>"),
         $("<ul class='list-group comment-container'>"),
         $("<textarea placeholder='New comment' rows='4' cols='60'>"),
@@ -180,7 +179,7 @@ $(document).ready(function() {
     // If we actually have data typed into the comment input field, format it
     // and post it to the "/api/comments" route and send the formatted commentData as well
     if (newComment) {
-      commentData = { _headlineId: $(this).data("article")._id, commentText: newComment };
+      commentData = { _id: $(this).data("article")._id, commentText: newComment };
       $.post("/api/comments", commentData).then(function() {
         // When complete, close the modal
         bootbox.hideAll();
@@ -202,12 +201,4 @@ $(document).ready(function() {
       bootbox.hideAll();
     });
   }
-
-  // function handleArticleClear() {
-  //   $.get("api/clear")
-  //     .then(function() {
-  //       articleContainer.empty();
-  //       initPage();
-  //     });
-  // }
 });

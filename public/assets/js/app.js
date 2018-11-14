@@ -99,12 +99,12 @@ $(document).ready(function() {
     articleToSave.saved = true;
     // Using a patch method to be semantic since this is an update to an existing record in our collection
     $.ajax({
-      method: "PUT",
-      url: "/api/articles/" + articleToSave._id,
+      method: "PATCH",
+      url: "/api/articles/",
       data: articleToSave
     }).then(function(data) {
       // If the data was saved successfully
-      if (data.saved) {
+      if (data.ok) {
         // Run the initPage function again. This will reload the entire list of articles
         initPage();
       }
@@ -121,11 +121,4 @@ $(document).ready(function() {
       bootbox.alert($("<h3 class='text-center m-top-80'>").text(data.message));
     });
   }
-
-  // function handleArticleClear() {
-  //   $.get("api/clear").then(function() {
-  //     articleContainer.empty();
-  //     initPage();
-  //   });
-  // }
 });

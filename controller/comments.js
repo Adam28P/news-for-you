@@ -28,4 +28,4 @@ module.exports = {
       _id: data._id
     }, cb);
   }
-}
+};

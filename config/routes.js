@@ -54,7 +54,7 @@ module.exports = function (router) {
 
   router.get("/api/comments/:article_id?", function (req, res) {
     var query = {};
-    if (req.params.article.id) {
+    if (req.params.article_id) {
       query._id = req.params.article_id;
     }
 
@@ -71,8 +71,15 @@ module.exports = function (router) {
     });
   });
 
-  router.post("api/comments", function (req, res) {
+  router.post("/api/comments", function (req, res) {
     commentsController.save(req.body, function (data) {
+      res.json(data);
+    });
+  });
+
+  router.delete("/api/clear", function (req, res) {
+    var query = {};
+    articlesController.delete(query, function (err, data) {
       res.json(data);
     });
   });
